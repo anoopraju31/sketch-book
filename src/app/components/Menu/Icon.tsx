@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 import styles from './index.module.css'
 
 interface IconProps {
-	onClick?: () => void
+	onClick: () => void
 	children: ReactNode
 }
 
