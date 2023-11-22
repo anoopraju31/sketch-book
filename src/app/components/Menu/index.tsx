@@ -1,4 +1,6 @@
-import { useAppDispatch } from '@/app/hooks/reduxHook'
+'use client'
+
+import { useAppDispatch } from '../../hooks/reduxHook'
 import { FaEraser, FaFileDownload, FaPencilAlt } from 'react-icons/fa'
 import { FaRotateLeft, FaRotateRight } from 'react-icons/fa6'
 import Icon from './Icon'
@@ -9,26 +11,27 @@ import { menuItemClick } from '@/app/redux/menuSlice'
 
 const Menu = () => {
 	const dispatch = useAppDispatch()
+
 	const handeClick = (itemName: string) => {
 		dispatch(menuItemClick(itemName))
 	}
 
 	return (
 		<div className={styles.menuContainer}>
-			<Icon>
-				<FaPencilAlt onClick={() => handeClick(MENU_ITEMS.PENCIL)} />
+			<Icon onClick={() => handeClick(MENU_ITEMS.PENCIL)}>
+				<FaPencilAlt />
 			</Icon>
-			<Icon>
-				<FaEraser onClick={() => handeClick(MENU_ITEMS.ERASER)} />
+			<Icon onClick={() => handeClick(MENU_ITEMS.ERASER)}>
+				<FaEraser />
 			</Icon>
-			<Icon>
-				<FaRotateLeft onClick={() => handeClick(MENU_ITEMS.UNDO)} />
+			<Icon onClick={() => handeClick(MENU_ITEMS.UNDO)}>
+				<FaRotateLeft />
 			</Icon>
-			<Icon>
-				<FaRotateRight onClick={() => handeClick(MENU_ITEMS.REDO)} />
+			<Icon onClick={() => handeClick(MENU_ITEMS.REDO)}>
+				<FaRotateRight />
 			</Icon>
-			<Icon>
-				<FaFileDownload onClick={() => handeClick(MENU_ITEMS.DOWNLOAD)} />
+			<Icon onClick={() => handeClick(MENU_ITEMS.DOWNLOAD)}>
+				<FaFileDownload />
 			</Icon>
 		</div>
 	)
