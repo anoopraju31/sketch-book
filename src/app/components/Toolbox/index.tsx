@@ -23,49 +23,48 @@ const Toolbox = () => {
 		: 0
 
 	const updateBrushSize = (e: ChangeEvent<HTMLInputElement>) => {
-		if (showBrushToolOption)
-			dispatch(
-				changeBrushSize({
-					item: activeMenuItem,
-					size: parseInt(e.target.value),
-				}),
-			)
+		if (!showBrushToolOption) return
+
+		dispatch(
+			changeBrushSize({
+				item: activeMenuItem,
+				size: parseInt(e.target.value),
+			}),
+		)
 	}
+
+	if (!showBrushToolOption) return null
 
 	return (
 		<div className={styles.toolboxContainer}>
-			{showBrushToolOption && (
-				<div className={styles.toolItem}>
-					<h4 className={styles.toolText}> Stroke Color {activeMenuItem} </h4>
+			<div className={styles.toolItem}>
+				<h4 className={styles.toolText}> Stroke Color </h4>
 
-					<div className={styles.itemContainer}>
-						<ColorPalate item={activeMenuItem} color={COLORS.BLACK} />
-						<ColorPalate item={activeMenuItem} color={COLORS.RED} />
-						<ColorPalate item={activeMenuItem} color={COLORS.GREEN} />
-						<ColorPalate item={activeMenuItem} color={COLORS.BLUE} />
-						<ColorPalate item={activeMenuItem} color={COLORS.ORANGE} />
-						<ColorPalate item={activeMenuItem} color={COLORS.YELLOW} />
-					</div>
+				<div className={styles.itemContainer}>
+					<ColorPalate item={activeMenuItem} color={COLORS.BLACK} />
+					<ColorPalate item={activeMenuItem} color={COLORS.RED} />
+					<ColorPalate item={activeMenuItem} color={COLORS.GREEN} />
+					<ColorPalate item={activeMenuItem} color={COLORS.BLUE} />
+					<ColorPalate item={activeMenuItem} color={COLORS.ORANGE} />
+					<ColorPalate item={activeMenuItem} color={COLORS.YELLOW} />
 				</div>
-			)}
+			</div>
 
-			{showBrushToolOption && (
-				<div className={styles.toolItem}>
-					<h4 className={styles.toolText}> Brush Size </h4>
+			<div className={styles.toolItem}>
+				<h4 className={styles.toolText}> Brush Size </h4>
 
-					<div className={styles.itemContainer}>
-						<input
-							type='range'
-							value={size}
-							min={1}
-							max={10}
-							step={1}
-							title='bursh size'
-							onChange={updateBrushSize}
-						/>
-					</div>
+				<div className={styles.itemContainer}>
+					<input
+						type='range'
+						value={size}
+						min={1}
+						max={10}
+						step={1}
+						title='bursh size'
+						onChange={updateBrushSize}
+					/>
 				</div>
-			)}
+			</div>
 		</div>
 	)
 }
