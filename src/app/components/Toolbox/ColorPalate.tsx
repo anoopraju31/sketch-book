@@ -1,8 +1,7 @@
-import React from 'react'
-import styles from './index.module.css'
-import { Color, MENU_ITEMS } from '@/app/utills/constants'
 import { useAppDispatch } from '@/app/hooks/reduxHook'
+import { Color, MENU_ITEMS } from '@/app/utills/constants'
 import { changeColor } from '@/app/redux/toolboxSlice'
+import styles from './index.module.css'
 
 interface ColorPalateProps {
 	item: typeof MENU_ITEMS.PENCIL | typeof MENU_ITEMS.ERASER

@@ -1,10 +1,11 @@
 'use client'
 
-import { COLORS, MENU_ITEMS } from '@/app/utills/constants'
-import styles from './index.module.css'
 import { useAppDispatch, useAppSelector } from '@/app/hooks/reduxHook'
 import { ChangeEvent } from 'react'
+import { COLORS, MENU_ITEMS } from '@/app/utills/constants'
+import ColorPalate from './ColorPalate'
 import { changeBrushSize } from '@/app/redux/toolboxSlice'
+import styles from './index.module.css'
 
 const Toolbox = () => {
 	const activeMenuItem = useAppSelector((state) => state.menu.activeMenuItem)
@@ -33,36 +34,17 @@ const Toolbox = () => {
 
 	return (
 		<div className={styles.toolboxContainer}>
-			{showStrokeToolOption && (
+			{showBrushToolOption && (
 				<div className={styles.toolItem}>
 					<h4 className={styles.toolText}> Stroke Color {activeMenuItem} </h4>
 
 					<div className={styles.itemContainer}>
-						<div
-							className={styles.colorBox}
-							style={{ backgroundColor: COLORS.BLACK }}
-						/>
-						<div
-							className={styles.colorBox}
-							style={{ backgroundColor: COLORS.RED }}
-						/>
-						<div
-							className={styles.colorBox}
-							style={{ backgroundColor: COLORS.GREEN }}
-						/>
-						<div
-							className={styles.colorBox}
-							style={{ backgroundColor: COLORS.BLUE }}
-						/>
-						<div
-							className={styles.colorBox}
-							style={{ backgroundColor: COLORS.ORANGE }}
-						/>
-
-						<div
-							className={styles.colorBox}
-							style={{ backgroundColor: COLORS.YELLOW }}
-						/>
+						<ColorPalate item={activeMenuItem} color={COLORS.BLACK} />
+						<ColorPalate item={activeMenuItem} color={COLORS.RED} />
+						<ColorPalate item={activeMenuItem} color={COLORS.GREEN} />
+						<ColorPalate item={activeMenuItem} color={COLORS.BLUE} />
+						<ColorPalate item={activeMenuItem} color={COLORS.ORANGE} />
+						<ColorPalate item={activeMenuItem} color={COLORS.YELLOW} />
 					</div>
 				</div>
 			)}
