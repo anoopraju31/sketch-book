@@ -6,7 +6,7 @@ export const COLORS = {
 	ORANGE: 'orange',
 	YELLOW: 'yellow',
 	WHITE: 'white',
-}
+} as const
 
 export const MENU_ITEMS = {
 	PENCIL: 'PENCIL',
@@ -14,4 +14,8 @@ export const MENU_ITEMS = {
 	UNDO: 'UNDO',
 	REDO: 'REDO',
 	DOWNLOAD: 'DOWNLOAD',
-}
+} as const
+
+export type MenuItem = keyof typeof MENU_ITEMS
+
+export type Color = (typeof COLORS)[keyof typeof COLORS]
