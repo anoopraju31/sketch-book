@@ -21,7 +21,7 @@ const initialState: InitialState = {
 		size: 3,
 	},
 	[MENU_ITEMS.ERASER]: {
-		color: COLORS.WHITE,
+		color: COLORS.BLACK,
 		size: 3,
 	},
 	[MENU_ITEMS.UNDO]: {},

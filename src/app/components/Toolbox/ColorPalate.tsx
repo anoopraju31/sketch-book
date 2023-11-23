@@ -1,4 +1,5 @@
-import { useAppDispatch } from '@/app/hooks/reduxHook'
+import { useAppDispatch, useAppSelector } from '@/app/hooks/reduxHook'
+import cx from 'classnames'
 import { Color, MENU_ITEMS } from '@/app/utills/constants'
 import { changeColor } from '@/app/redux/toolboxSlice'
 import styles from './index.module.css'
@@ -9,8 +10,12 @@ interface ColorPalateProps {
 }
 
 const ColorPalate = (props: ColorPalateProps) => {
-	const dispatch = useAppDispatch()
 	const { item, color } = props
+	const activeMenuItem = useAppSelector((state) => state.menu.activeMenuItem)
+	const pencilColor = useAppSelector((state) => state.toolbox.PENCIL.color)
+	const eraserColor = useAppSelector((state) => state.toolbox.ERASER.color)
+	const dispatch = useAppDispatch()
+	const isPencil = activeMenuItem === MENU_ITEMS.PENCIL
 
 	const handleClick = () => {
 		dispatch(
@@ -24,7 +29,9 @@ const ColorPalate = (props: ColorPalateProps) => {
 	return (
 		<div
 			onClick={handleClick}
-			className={styles.colorBox}
+			className={cx(styles.colorBox, {
+				[styles.active]: color === (isPencil ? pencilColor : eraserColor),
+			})}
 			style={{ backgroundColor: color }}
 		/>
 	)
