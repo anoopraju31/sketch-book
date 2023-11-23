@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { MENU_ITEMS } from '../utills/constants'
+import { MENU_ITEMS, MenuItem } from '../utills/constants'
 
 interface InitialState {
-	activeMenuItem: 'PENCIL' | 'ERASER' | 'UNDO' | 'REDO' | 'DOWNLOAD'
+	activeMenuItem: MenuItem
 	actionMenuItem: null | string
 }
 
