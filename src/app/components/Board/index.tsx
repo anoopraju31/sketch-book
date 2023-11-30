@@ -6,6 +6,7 @@ import { COLORS, MENU_ITEMS } from '@/app/utills/constants'
 
 const Board = () => {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null)
+	const shouldDraw = useRef<boolean>(false)
 	const activeMenuItem = useAppSelector((state) => state.menu.activeMenuItem)
 	const pencilColor = useAppSelector((state) => state.toolbox.PENCIL.color)
 	const pencilSize = useAppSelector((state) => state.toolbox.PENCIL.size)
@@ -25,6 +26,22 @@ const Board = () => {
 			: eraserColor
 		: COLORS.WHITE
 
+	useEffect(() => {
+		if (!canvasRef.current) return
+
+		const canvas = canvasRef.current
+		const context = canvas.getContext('2d')
+		const changeConfig = () => {
+			if (!context) return
+
+			context.strokeStyle = color
+			context.lineWidth = size
+		}
+
+		changeConfig()
+	}, [color, size])
+
+	// mount
 	useEffect(() => {
 		if (!canvasRef.current) return
 
