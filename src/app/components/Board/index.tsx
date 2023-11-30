@@ -31,12 +31,14 @@ const Board = () => {
 		const canvas = canvasRef.current
 		const context = canvas.getContext('2d')
 
-		if (actionMenuItem === MENU_ITEMS.DOWNLOAD) {
-			const URL = canvas.toDataURL()
-			const anchor = document.createElement('a')
-			anchor.href = URL
-			anchor.download = 'sketch.png'
-			anchor.click()
+		switch (actionMenuItem) {
+			case MENU_ITEMS.DOWNLOAD:
+				const URL = canvas.toDataURL()
+				const anchor = document.createElement('a')
+				anchor.href = URL
+				anchor.download = 'sketch.png'
+				anchor.click()
+				break
 		}
 
 		dispatch(actionItemClick(null))
