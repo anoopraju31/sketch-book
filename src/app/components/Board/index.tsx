@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useLayoutEffect, useRef } from 'react'
 import { useAppSelector } from '@/app/hooks/reduxHook'
 import { COLORS, MENU_ITEMS } from '@/app/utills/constants'
 
@@ -41,14 +41,13 @@ const Board = () => {
 		changeConfig()
 	}, [color, size])
 
-	// mount
-	useEffect(() => {
+	// before browser paint mount
+	useLayoutEffect(() => {
 		if (!canvasRef.current) return
 
 		const canvas = canvasRef.current
 		const context = canvas.getContext('2d')
 
-		// When Mounting
 		canvas.width = window.innerWidth
 		canvas.height = window.innerHeight
 
