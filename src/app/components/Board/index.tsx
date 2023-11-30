@@ -92,11 +92,14 @@ const Board = () => {
 		canvas.width = window.innerWidth
 		canvas.height = window.innerHeight
 
-		const imageData = context?.getImageData(0, 0, canvas.width, canvas.height)
+		const addImageToDrawHistory = () => {
+			const imageData = context?.getImageData(0, 0, canvas.width, canvas.height)
 
-		if (!imageData) return
+			if (!imageData) return
 
-		drawHistory.current.push(imageData)
+			drawHistory.current.push(imageData)
+			historyPointer.current = drawHistory.current.length - 1
+		}
 
 		const beginPath = (x: number, y: number) => {
 			context?.beginPath()
@@ -122,14 +125,10 @@ const Board = () => {
 
 		const handleMouseUp = (e: MouseEvent) => {
 			shouldDraw.current = false
-
-			const imageData = context?.getImageData(0, 0, canvas.width, canvas.height)
-
-			if (!imageData) return
-
-			drawHistory.current.push(imageData)
-			historyPointer.current = drawHistory.current.length - 1
+			addImageToDrawHistory()
 		}
+
+		addImageToDrawHistory()
 
 		canvas.addEventListener('mousedown', handleMouseDown)
 		canvas.addEventListener('mousemove', handleMouseMove)
