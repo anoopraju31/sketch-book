@@ -37,18 +37,20 @@ const Toolbox = () => {
 
 	return (
 		<div className={styles.toolboxContainer}>
-			<div className={styles.toolItem}>
-				<h4 className={styles.toolText}> Stroke Color </h4>
+			{showStrokeToolOption && (
+				<div className={styles.toolItem}>
+					<h4 className={styles.toolText}> Stroke Color </h4>
 
-				<div className={styles.itemContainer}>
-					<ColorPalate item={activeMenuItem} color={COLORS.BLACK} />
-					<ColorPalate item={activeMenuItem} color={COLORS.RED} />
-					<ColorPalate item={activeMenuItem} color={COLORS.GREEN} />
-					<ColorPalate item={activeMenuItem} color={COLORS.BLUE} />
-					<ColorPalate item={activeMenuItem} color={COLORS.ORANGE} />
-					<ColorPalate item={activeMenuItem} color={COLORS.YELLOW} />
+					<div className={styles.itemContainer}>
+						<ColorPalate item={activeMenuItem} color={COLORS.BLACK} />
+						<ColorPalate item={activeMenuItem} color={COLORS.RED} />
+						<ColorPalate item={activeMenuItem} color={COLORS.GREEN} />
+						<ColorPalate item={activeMenuItem} color={COLORS.BLUE} />
+						<ColorPalate item={activeMenuItem} color={COLORS.ORANGE} />
+						<ColorPalate item={activeMenuItem} color={COLORS.YELLOW} />
+					</div>
 				</div>
-			</div>
+			)}
 
 			<div className={styles.toolItem}>
 				<h4 className={styles.toolText}> Brush Size </h4>
