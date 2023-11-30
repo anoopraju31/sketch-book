@@ -83,8 +83,6 @@ const Board = () => {
 		}
 	}, [])
 
-	console.log(color, size)
-
 	return <canvas ref={canvasRef}></canvas>
 }
 
