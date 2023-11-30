@@ -51,6 +51,31 @@ const Board = () => {
 		// When Mounting
 		canvas.width = window.innerWidth
 		canvas.height = window.innerHeight
+
+		const handleMouseDown = (e: MouseEvent) => {
+			shouldDraw.current = true
+			context?.beginPath()
+			context?.moveTo(e.clientX, e.clientY)
+		}
+		const handleMouseMove = (e: MouseEvent) => {
+			if (!shouldDraw.current) return
+
+			context?.lineTo(e.clientX, e.clientY)
+			context?.stroke()
+		}
+		const handleMouseUp = (e: MouseEvent) => {
+			shouldDraw.current = false
+		}
+
+		canvas.addEventListener('mousedown', handleMouseDown)
+		canvas.addEventListener('mousemove', handleMouseMove)
+		canvas.addEventListener('mouseup', handleMouseUp)
+
+		return () => {
+			canvas.removeEventListener('mousedown', handleMouseDown)
+			canvas.removeEventListener('mousemove', handleMouseMove)
+			canvas.removeEventListener('mouseup', handleMouseUp)
+		}
 	}, [])
 
 	console.log(color, size)
