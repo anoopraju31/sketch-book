@@ -8,6 +8,8 @@ import { actionItemClick } from '@/app/redux/menuSlice'
 const Board = () => {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null)
 	const shouldDraw = useRef<boolean>(false)
+	const drawHistory = useRef<ImageData[]>([])
+	const historyPointer = useRef<number>(0)
 	const activeMenuItem = useAppSelector((state) => state.menu.activeMenuItem)
 	const actionMenuItem = useAppSelector((state) => state.menu.actionMenuItem)
 	const pencilColor = useAppSelector((state) => state.toolbox.PENCIL.color)
@@ -31,6 +33,19 @@ const Board = () => {
 		const canvas = canvasRef.current
 		const context = canvas.getContext('2d')
 
+		const imageData = context?.getImageData(0, 0, canvas.width, canvas.height)
+
+		if (!imageData) return
+
+		drawHistory.current.push(imageData)
+	}, [])
+
+	useEffect(() => {
+		if (!canvasRef.current) return
+
+		const canvas = canvasRef.current
+		const context = canvas.getContext('2d')
+
 		switch (actionMenuItem) {
 			case MENU_ITEMS.DOWNLOAD:
 				const URL = canvas.toDataURL()
@@ -38,6 +53,13 @@ const Board = () => {
 				anchor.href = URL
 				anchor.download = 'sketch.png'
 				anchor.click()
+				break
+			case MENU_ITEMS.UNDO:
+				if (!historyPointer.current) return
+
+				historyPointer.current -= 1
+				const imageData = drawHistory.current[historyPointer.current]
+				context?.putImageData(imageData, 0, 0)
 				break
 		}
 
@@ -93,6 +115,13 @@ const Board = () => {
 
 		const handleMouseUp = (e: MouseEvent) => {
 			shouldDraw.current = false
+
+			const imageData = context?.getImageData(0, 0, canvas.width, canvas.height)
+
+			if (!imageData) return
+
+			drawHistory.current.push(imageData)
+			historyPointer.current = drawHistory.current.length - 1
 		}
 
 		canvas.addEventListener('mousedown', handleMouseDown)
