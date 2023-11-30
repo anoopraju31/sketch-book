@@ -10,7 +10,6 @@ const Board = () => {
 	const activeMenuItem = useAppSelector((state) => state.menu.activeMenuItem)
 	const pencilColor = useAppSelector((state) => state.toolbox.PENCIL.color)
 	const pencilSize = useAppSelector((state) => state.toolbox.PENCIL.size)
-	const eraserColor = useAppSelector((state) => state.toolbox.ERASER.color)
 	const eraserSize = useAppSelector((state) => state.toolbox.ERASER.size)
 	const showStrokeToolOption = activeMenuItem === MENU_ITEMS.PENCIL
 	const showBrushToolOption =
@@ -20,11 +19,7 @@ const Board = () => {
 			? pencilSize
 			: eraserSize
 		: 0
-	const color = showBrushToolOption
-		? showStrokeToolOption
-			? pencilColor
-			: eraserColor
-		: COLORS.WHITE
+	const color = showStrokeToolOption ? pencilColor : COLORS.WHITE
 
 	useEffect(() => {
 		if (!canvasRef.current) return
