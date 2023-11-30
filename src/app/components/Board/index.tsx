@@ -27,6 +27,7 @@ const Board = () => {
 		: 0
 	const color = showStrokeToolOption ? pencilColor : COLORS.WHITE
 
+	// to add initial image to draw history
 	useEffect(() => {
 		if (!canvasRef.current) return
 
@@ -46,6 +47,11 @@ const Board = () => {
 		const canvas = canvasRef.current
 		const context = canvas.getContext('2d')
 
+		const addImageToCanvas = () => {
+			const imageData = drawHistory.current[historyPointer.current]
+			context?.putImageData(imageData, 0, 0)
+		}
+
 		switch (actionMenuItem) {
 			case MENU_ITEMS.DOWNLOAD:
 				const URL = canvas.toDataURL()
@@ -58,8 +64,13 @@ const Board = () => {
 				if (!historyPointer.current) return
 
 				historyPointer.current -= 1
-				const imageData = drawHistory.current[historyPointer.current]
-				context?.putImageData(imageData, 0, 0)
+				addImageToCanvas()
+				break
+			case MENU_ITEMS.REDO:
+				if (historyPointer.current >= drawHistory.current.length - 1) return
+
+				historyPointer.current += 1
+				addImageToCanvas()
 				break
 		}
 
