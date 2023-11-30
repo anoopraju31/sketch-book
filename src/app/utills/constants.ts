@@ -6,6 +6,7 @@ export const COLORS = {
 	ORANGE: 'orange',
 	YELLOW: 'yellow',
 	WHITE: 'white',
+	TRANSPARENT: 'rgba(0, 0, 0, 0)',
 } as const
 
 export const MENU_ITEMS = {

@@ -25,21 +25,11 @@ const Board = () => {
 			? pencilSize
 			: eraserSize
 		: 0
-	const color = showStrokeToolOption ? pencilColor : COLORS.WHITE
-
-	// to add initial image to draw history
-	useEffect(() => {
-		if (!canvasRef.current) return
-
-		const canvas = canvasRef.current
-		const context = canvas.getContext('2d')
-
-		const imageData = context?.getImageData(0, 0, canvas.width, canvas.height)
-
-		if (!imageData) return
-
-		drawHistory.current.push(imageData)
-	}, [])
+	const color = showBrushToolOption
+		? showStrokeToolOption
+			? pencilColor
+			: COLORS.WHITE
+		: COLORS.TRANSPARENT
 
 	useEffect(() => {
 		if (!canvasRef.current) return
@@ -94,13 +84,19 @@ const Board = () => {
 
 	// before browser paint mount
 	useLayoutEffect(() => {
-		if (!canvasRef.current || !showBrushToolOption) return
+		if (!canvasRef.current) return
 
 		const canvas = canvasRef.current
 		const context = canvas.getContext('2d')
 
 		canvas.width = window.innerWidth
 		canvas.height = window.innerHeight
+
+		const imageData = context?.getImageData(0, 0, canvas.width, canvas.height)
+
+		if (!imageData) return
+
+		drawHistory.current.push(imageData)
 
 		const beginPath = (x: number, y: number) => {
 			context?.beginPath()
@@ -144,7 +140,7 @@ const Board = () => {
 			canvas.removeEventListener('mousemove', handleMouseMove)
 			canvas.removeEventListener('mouseup', handleMouseUp)
 		}
-	}, [showBrushToolOption])
+	}, [])
 
 	return <canvas ref={canvasRef}></canvas>
 }
