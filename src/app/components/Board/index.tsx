@@ -8,6 +8,7 @@ const Board = () => {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null)
 	const shouldDraw = useRef<boolean>(false)
 	const activeMenuItem = useAppSelector((state) => state.menu.activeMenuItem)
+	const actionMenuItem = useAppSelector((state) => state.menu.actionMenuItem)
 	const pencilColor = useAppSelector((state) => state.toolbox.PENCIL.color)
 	const pencilSize = useAppSelector((state) => state.toolbox.PENCIL.size)
 	const eraserSize = useAppSelector((state) => state.toolbox.ERASER.size)
@@ -20,6 +21,21 @@ const Board = () => {
 			: eraserSize
 		: 0
 	const color = showStrokeToolOption ? pencilColor : COLORS.WHITE
+
+	useEffect(() => {
+		if (!canvasRef.current) return
+
+		const canvas = canvasRef.current
+		const context = canvas.getContext('2d')
+
+		if (actionMenuItem === MENU_ITEMS.DOWNLOAD) {
+			const URL = canvas.toDataURL()
+			const anchor = document.createElement('a')
+			anchor.href = URL
+			anchor.download = 'sketch.png'
+			anchor.click()
+		}
+	}, [actionMenuItem])
 
 	useEffect(() => {
 		if (!canvasRef.current) return

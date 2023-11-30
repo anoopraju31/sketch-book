@@ -3,7 +3,8 @@ import { ReactNode } from 'react'
 import cx from 'classnames'
 import styles from './index.module.css'
 import { useAppDispatch, useAppSelector } from '@/app/hooks/reduxHook'
-import { menuItemClick } from '@/app/redux/menuSlice'
+import { actionItemClick, menuItemClick } from '@/app/redux/menuSlice'
+import { MENU_ITEMS } from '@/app/utills/constants'
 
 interface IconProps {
 	item: string
@@ -17,6 +18,13 @@ const Icon = (props: IconProps) => {
 
 	const handeClick = (itemName: string) => {
 		dispatch(menuItemClick(itemName))
+		dispatch(
+			actionItemClick(
+				itemName === MENU_ITEMS.PENCIL || itemName === MENU_ITEMS.ERASER
+					? null
+					: itemName,
+			),
+		)
 	}
 
 	return (
