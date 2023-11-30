@@ -61,7 +61,7 @@ const Board = () => {
 
 	// before browser paint mount
 	useLayoutEffect(() => {
-		if (!canvasRef.current) return
+		if (!canvasRef.current || !showBrushToolOption) return
 
 		const canvas = canvasRef.current
 		const context = canvas.getContext('2d')
@@ -104,7 +104,7 @@ const Board = () => {
 			canvas.removeEventListener('mousemove', handleMouseMove)
 			canvas.removeEventListener('mouseup', handleMouseUp)
 		}
-	}, [])
+	}, [showBrushToolOption])
 
 	return <canvas ref={canvasRef}></canvas>
 }
